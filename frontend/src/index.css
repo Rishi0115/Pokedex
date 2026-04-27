@@ -1,0 +1,89 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css?family=Poppins:200i,300,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Allerta+Stencil');
+@import url('https://fonts.googleapis.com/css?family=Nova+Flat');
+@import url('https://fonts.googleapis.com/css?family=Merienda');
+
+@theme {
+  --font-poppins: 'Poppins', sans-serif;
+  --font-nova: 'Nova Flat', cursive;
+  --font-merienda: 'Merienda', cursive;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #31102F;
+  background: radial-gradient(ellipse at center, rgba(49,16,47,1) 0%, rgba(40,11,41,1) 100%);
+  color: #fff;
+  font-family: var(--font-poppins);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Background animation */
+#stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: linear-gradient(#000000, #682483);
+}
+
+/* Component specifics mapped from original CSS */
+.pokedex-hinge {
+  background: linear-gradient(to right, #181616, #240e0f, #2a1112, #171414);
+}
+
+.type-bg-normal { background-image: linear-gradient(#c5d6d9,#2f3032); }
+.type-bg-fighting { background-image: linear-gradient(#FFA17F,#00223E); }
+.type-bg-flying { background-image: linear-gradient(#3498db,#2c3e50); }
+.type-bg-poison { background-image: linear-gradient(#948E99,#2E1437); }
+.type-bg-ground { background-image: linear-gradient(#dbd5a4,#649173); }
+.type-bg-rock { background-image: linear-gradient(#e9d362,#333333); }
+.type-bg-bug { background-image: linear-gradient(#CCCCB2,#757519); }
+.type-bg-ghost { background-image: linear-gradient(#efd5ff,rgba(49,16,47,1)); }
+.type-bg-steel { background-image: linear-gradient(#d7d2cc,#304352); }
+.type-bg-fire { background-image: linear-gradient(#b62439,#32090d); }
+.type-bg-water { background-image: linear-gradient(#0CBABA,#102750); }
+.type-bg-grass { background-image: linear-gradient(#63D471,#233329); }
+.type-bg-electric { background-image: linear-gradient(#f5d51f,#3b3511); }
+.type-bg-psychic { background-image: linear-gradient(#ffdde1,#ee9ca7); }
+.type-bg-ice { background-image: linear-gradient(#5F9EA0,#005f69); }
+.type-bg-dragon { background-image: linear-gradient(#800080,#33006F); }
+.type-bg-dark { background-image: linear-gradient(#3498db,#2c3e50); }
+.type-bg-fairy { background-image: linear-gradient(#fbd3e9,#bb377d); }
+
+.list-item-hover:hover {
+  background: #3d464b;
+  color: black;
+}
+.list-item-hover:active {
+  background: #2e547d;
+  color: white;
+}
+
+/* Custom scrollbar for right pane */
+.pokedex-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.pokedex-scroll::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2); 
+}
+.pokedex-scroll::-webkit-scrollbar-thumb {
+  background: #1f1c18; 
+  border-radius: 10px;
+}
+.pokedex-scroll::-webkit-scrollbar-thumb:hover {
+  background: #3d464b; 
+}
