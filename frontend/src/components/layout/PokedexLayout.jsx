@@ -5,14 +5,7 @@ export default function PokedexLayout({ leftContent, rightContent, LeftHeaderLig
   return (
     <div className="pokedex-outer-wrapper relative">
 
-      {/* Peeking Charizard */}
-      <div className="absolute top-[-80px] right-[20px] lg:right-[40px] xl:right-[100px] z-0 pointer-events-none transform rotate-[15deg]">
-        <img
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png"
-          alt="Charizard peeking"
-          className="w-48 h-48 object-contain drop-shadow-xl"
-        />
-      </div>
+
 
       <div className="pokedex-main-shell relative z-10 !border-[8px] !border-[#2a1717] !rounded-xl !bg-[#361f1f] shadow-2xl">
 
