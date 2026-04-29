@@ -8,7 +8,8 @@ import { useFavorites } from './hooks/useFavorites';
 function App() {
   const { 
     pokemonList, loading, error, 
-    loadNextPage, loadPreviousPage, page, hasMore
+    loadNextPage, loadPreviousPage, page, hasMore,
+    searchQuery, setSearchQuery, selectedType, setSelectedType
   } = usePokemonList(1, 20);
 
   const { isFavorite, toggleFavorite } = useFavorites();
@@ -20,7 +21,7 @@ function App() {
     <>
       <div id="stars" />
       
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-4">
+      <div className="relative z-10 w-full flex flex-col items-center justify-center py-4 px-2 md:px-4">
         
         <PokedexLayout 
           leftContent={
@@ -40,6 +41,11 @@ function App() {
               onPrev={loadPreviousPage}
               hasMore={hasMore}
               page={page}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              selectedType={selectedType}
+              setSelectedType={setSelectedType}
+              isFavorite={isFavorite}
             />
           }
           LeftHeaderLights={
