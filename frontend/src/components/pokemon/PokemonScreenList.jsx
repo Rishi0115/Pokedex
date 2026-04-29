@@ -1,86 +1,133 @@
 import React from 'react';
 
-export default function PokemonScreenList({ 
-  pokemonList, 
-  loading, 
-  error, 
+export default function PokemonScreenList({
+  pokemonList,
+  loading,
+  error,
   onCardClick,
   onNext,
   onPrev,
   hasMore,
-  page
+  page,
+  searchQuery,
+  setSearchQuery,
+  selectedType,
+  setSelectedType,
+  isFavorite
 }) {
-
   // We want to force render up to 20 slots to keep the UI dimension consistent.
   const slots = Array.from({ length: 20 });
-  
+
   return (
-    <div className="flex flex-col h-full overflow-hidden">
-      
-      {/* Inner Black Box (Screen) */}
-      <div className="bg-black shadow-[0_0_2px_2px_rgba(0,0,0,0.3)] flex-1 p-3 rounded-lg overflow-hidden flex flex-col mb-6 mt-2 relative">
-        <div className="bg-gradient-to-b from-[#141e30] to-[#243b55] rounded-xl flex-1 flex flex-col flex-wrap p-4 custom-scrollbar overflow-x-hidden content-start pokedex-scroll">
-          
+    <div className="flex flex-col h-full overflow-hidden items-center justify-center">
+
+      {/* Inner Screen */}
+      <div className="w-full max-w-[450px] aspect-[1.1] bg-black p-4 md:p-6 rounded-md overflow-hidden flex flex-col mb-6 mt-2 relative gap-3">
+
+        {/* Controls Row - Styled as Hardware Buttons */}
+        <div className="flex justify-between items-center shrink-0 w-full pr-1 pb-1 gap-2 md:gap-3">
+          <input
+            type="text"
+            placeholder="SEARCH..."
+            value={searchQuery || ''}
+            onChange={(e) => setSearchQuery && setSearchQuery(e.target.value)}
+            className="flex-1 min-w-0 bg-[#111] text-white px-3 py-1.5 rounded border-2 border-black shadow-[0_4px_0_#000] focus:outline-none focus:translate-y-1 focus:shadow-none transition-all uppercase tracking-widest font-bold font-[var(--font-poppins)] text-[11px] md:text-xs placeholder-gray-500"
+          />
+          <div className="relative shrink-0 min-w-fit">
+            <select
+              value={selectedType || ''}
+              onChange={(e) => setSelectedType && setSelectedType(e.target.value)}
+              className="w-full bg-[#111] hover:bg-[#222] text-white pl-2 pr-8 py-1.5 rounded border-2 border-black shadow-[0_4px_0_#000] focus:outline-none focus:translate-y-1 focus:shadow-none transition-all uppercase tracking-widest font-bold font-[var(--font-poppins)] text-[11px] md:text-xs cursor-pointer appearance-none"
+            >
+              <option value="">ALL TYPES</option>
+              <option value="fire">FIRE</option>
+              <option value="water">WATER</option>
+              <option value="grass">GRASS</option>
+              <option value="electric">ELECTRIC</option>
+              <option value="psychic">PSYCHIC</option>
+              <option value="ice">ICE</option>
+              <option value="dragon">DRAGON</option>
+              <option value="dark">DARK</option>
+              <option value="fairy">FAIRY</option>
+              <option value="normal">NORMAL</option>
+              <option value="fighting">FIGHTING</option>
+              <option value="flying">FLYING</option>
+              <option value="poison">POISON</option>
+              <option value="ground">GROUND</option>
+              <option value="rock">ROCK</option>
+              <option value="bug">BUG</option>
+              <option value="ghost">GHOST</option>
+              <option value="steel">STEEL</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-white/70">
+              <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-[#1a2b3c] border-[4px] border-[#0a1118] rounded-2xl flex-1 grid grid-flow-col grid-cols-2 grid-rows-10 gap-x-2 md:gap-x-4 gap-y-2 px-2 md:px-4 py-3 md:py-4 overflow-hidden text-white font-[var(--font-poppins)] justify-items-start content-evenly">
+
           {loading && (
-             slots.map((_, i) => (
-                <div key={`skeleton-row-${i}`} className="flex items-center text-white h-[25px] overflow-hidden pl-2 w-1/2 rounded font-mono border-b border-white/10 animate-pulse">
-                   <div className="w-6 h-3 bg-white/20 rounded mr-2" />
-                   <div className="w-20 h-3 bg-white/20 rounded" />
-                </div>
-             ))
+            slots.map((_, i) => (
+              <div key={`skeleton-row-${i}`} className="flex items-center text-white h-[24px] overflow-hidden pl-2 rounded text-sm animate-pulse">
+                <div className="w-5 h-2.5 bg-white/20 rounded mr-2" />
+                <div className="w-20 h-2.5 bg-white/20 rounded" />
+              </div>
+            ))
           )}
 
           {error && !loading && (
-             <div className="w-full flex items-center justify-center pt-20 text-red-500 font-bold text-center px-4">
-                {error}
-             </div>
+            <div className="col-span-2 row-span-10 flex items-center justify-center text-red-500 font-bold text-center px-4 text-sm">
+              {error}
+            </div>
           )}
 
           {!loading && !error && pokemonList.length === 0 && (
-             <div className="w-full flex items-center justify-center pt-20 text-gray-400 font-mono">
-                No Pokémon found.
-             </div>
+            <div className="col-span-2 row-span-10 flex items-center justify-center text-gray-400 font-mono text-sm">
+              No Pokémon found.
+            </div>
           )}
 
           {!loading && !error && pokemonList.length > 0 && slots.map((_, i) => {
-             const poke = pokemonList[i];
-             
-             if (!poke) {
-               return <div key={`empty-${i}`} className="w-1/2 h-[25px] border-b border-white/5" />;
-             }
+            const poke = pokemonList[i];
 
-             // Extract ID roughly from url
-             const idMatch = poke.url.match(/\/(\d+)\/?$/);
-             const pokemonId = idMatch ? idMatch[1] : '?';
+            if (!poke) {
+              return <div key={`empty-${i}`} className="h-[24px]" />;
+            }
 
-             return (
-              <div 
-               key={poke.name} 
-               onClick={() => onCardClick(poke.name)}
-               className="list-item-hover flex items-center text-white cursor-pointer text-xs h-[25px] overflow-hidden pl-2 w-1/2 rounded font-mono truncate border-b border-white/10 transition-colors"
+            // Use the actual index based on page offset to match the screenshot "1. Bulbasaur"
+            const displayId = ((page - 1) * 20) + i + 1;
+
+            return (
+              <div
+                key={poke.name}
+                onClick={() => onCardClick(poke.name)}
+                className="flex items-center text-white hover:text-yellow-300 cursor-pointer text-[11px] md:text-xs h-[24px] overflow-hidden pl-1 rounded w-full transition-colors"
               >
-                <span className="mr-2 text-white/50">{pokemonId}.</span>
-                <span className="capitalize">{poke.name}</span>
+                <span className="mr-1 md:mr-2 font-semibold w-[20px] md:w-[24px] shrink-0 inline-block">{displayId}.</span>
+                <span className="capitalize font-medium whitespace-nowrap tracking-wide">{poke.name.replace(/-/g, ' ')}</span>
               </div>
-             );
+            );
           })}
 
         </div>
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-around mt-auto pb-4 shrink-0">
-        <button 
+      <div className="flex justify-center gap-12 shrink-0 pb-2">
+        <button
           onClick={onPrev}
           disabled={page <= 1 || loading}
-          className="flex items-center justify-center h-[30px] w-[100px] bg-[#1f1c18] text-white border-2 border-black rounded shadow-[0_0_2px_2px_rgba(0,0,0,0.3)] font-bold uppercase tracking-wider text-xs transition-colors hover:bg-[#385a81] active:shadow-[inset_0_0_4px_rgba(0,0,0,0.8)] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-[#111] hover:bg-[#222] disabled:opacity-50 text-white font-bold py-2 px-8 rounded-md border-2 border-black shadow-[0_4px_0_#000] active:translate-y-1 active:shadow-none transition-all uppercase tracking-widest text-sm"
         >
           Prev
         </button>
-        <button 
+        <button
           onClick={onNext}
           disabled={!hasMore || loading}
-          className="flex items-center justify-center h-[30px] w-[100px] bg-[#1f1c18] text-white border-2 border-black rounded shadow-[0_0_2px_2px_rgba(0,0,0,0.3)] font-bold uppercase tracking-wider text-xs transition-colors hover:bg-[#385a81] active:shadow-[inset_0_0_4px_rgba(0,0,0,0.8)] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-[#111] hover:bg-[#222] disabled:opacity-50 text-white font-bold py-2 px-8 rounded-md border-2 border-black shadow-[0_4px_0_#000] active:translate-y-1 active:shadow-none transition-all uppercase tracking-widest text-sm"
         >
           Next
         </button>

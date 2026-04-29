@@ -10,5 +10,23 @@
     "name": "bulbasaur",
     "pokemonId": 1,
     "addedAt": "2026-04-27T19:19:55.161Z"
+  },
+  {
+    "id": "1777485259271",
+    "name": "rattata",
+    "pokemonId": 19,
+    "addedAt": "2026-04-29T17:54:19.271Z"
+  },
+  {
+    "id": "1777485267275",
+    "name": "ivysaur",
+    "pokemonId": 2,
+    "addedAt": "2026-04-29T17:54:27.275Z"
+  },
+  {
+    "id": "1777485278692",
+    "name": "charmander",
+    "pokemonId": 4,
+    "addedAt": "2026-04-29T17:54:38.692Z"
   }
 ]
