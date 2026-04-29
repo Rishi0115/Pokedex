@@ -53,25 +53,30 @@ export default function PokemonScreenDetails({ pokemonName, isFavorite, onToggle
            {/* Shimmer Overlay */}
            <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_1.5s_infinite] z-20 pointer-events-none" />
            
+           {/* Header: Name + Star (no ID) */}
            <div className="flex justify-between items-center z-10 relative shrink-0 h-[10%]">
-              <div className="w-32 h-8 bg-black/20 rounded" />
-              <div className="w-16 h-6 bg-black/20 rounded" />
+              <div className="w-36 h-8 bg-white/15 rounded" />
+              <div className="w-8 h-8 bg-white/10 rounded-full" />
            </div>
            
-           <div className="h-[45%] flex justify-center items-center relative z-10 shrink-0">
-              <div className="w-40 h-40 bg-black/10 rounded-full shadow-inner" />
+           {/* Image placeholder - 55% */}
+           <div className="h-[55%] flex justify-center items-center relative z-10 shrink-0">
+              <div className="w-44 h-44 bg-black/10 rounded-full shadow-inner" />
            </div>
            
+           {/* Bottom: Capsule pills left, Square stats right */}
            <div className="h-[30%] w-full flex justify-between items-end pb-2 z-10 relative shrink-0">
-             <div className="flex gap-2">
-               <div className="flex flex-col gap-2">
-                 <div className="w-20 h-6 bg-white/20 rounded-full" />
-                 <div className="w-24 h-6 bg-white/20 rounded-full" />
-               </div>
+             {/* Left: Capsule pill placeholders in a column */}
+             <div className="flex flex-col gap-1.5 justify-end">
+               <div className="w-16 h-6 bg-white/15 rounded-full" />
+               <div className="w-20 h-6 bg-white/15 rounded-full" />
+               <div className="w-24 h-6 bg-white/10 rounded-full" />
+               <div className="w-20 h-6 bg-white/10 rounded-full" />
              </div>
+             {/* Right: Square stat box placeholders */}
              <div className="flex flex-col gap-2 items-end">
-               <div className="w-24 h-5 bg-white/20 rounded" />
-               <div className="w-24 h-5 bg-white/20 rounded" />
+               <div className="w-20 h-10 bg-white/10 rounded-lg" />
+               <div className="w-20 h-10 bg-white/10 rounded-lg" />
              </div>
            </div>
         </div>
@@ -87,28 +92,22 @@ export default function PokemonScreenDetails({ pokemonName, isFavorite, onToggle
       {/* Detail State */}
       {details && !loading && !error && (
         <div className="w-full h-full flex flex-col p-4 md:p-6">
-          {/* Header */}
-          <div className="flex justify-between items-center z-10 relative text-[#2a2a2a] shrink-0 h-[10%]">
-            <span className="text-2xl md:text-3xl font-bold capitalize tracking-wide font-[var(--font-poppins)] overflow-hidden text-ellipsis whitespace-nowrap mr-2 drop-shadow-md text-white">
-              {details.name}
+          {/* Header - Name + Favorite only */}
+          <div className="flex justify-between items-center z-10 relative shrink-0 h-[10%]">
+            <span className="text-2xl md:text-3xl font-bold capitalize tracking-wide font-[var(--font-poppins)] drop-shadow-md text-white">
+              {details.name.replace(/-/g, ' ')}
             </span>
-            <div className="flex items-center gap-3 shrink-0">
-              {/* Metallic Accent ID */}
-              <span className="text-xl md:text-2xl font-[var(--font-poppins)] font-black bg-gradient-to-b from-[#e0e0e0] to-[#888888] bg-clip-text text-transparent drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-                #{String(details.id).padStart(3, '0')}
-              </span>
-              <button 
-                onClick={() => onToggleFavorite(details.name, details.id)}
-                className={`text-2xl md:text-3xl transition-all duration-300 hover:scale-125 active:scale-90 focus:outline-none ${isFavorite ? 'text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]' : 'text-white/40 hover:text-white/80'}`}
-                title={isFavorite ? "Remove from Favorites" : "Add to Favorites"}
-              >
-                ★
-              </button>
-            </div>
+            <button 
+              onClick={() => onToggleFavorite(details.name, details.id)}
+              className={`text-2xl md:text-3xl transition-all duration-300 hover:scale-125 active:scale-90 focus:outline-none shrink-0 ${isFavorite ? 'text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]' : 'text-white/40 hover:text-white/80'}`}
+              title={isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+            >
+              ★
+            </button>
           </div>
 
-          {/* Image - Strictly 45% max height */}
-          <div className="h-[45%] flex justify-center items-center relative z-10 shrink-0">
+          {/* Image - Fills more space */}
+          <div className="h-[55%] flex justify-center items-center relative z-10 shrink-0">
             <img 
               src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${String(details.id).padStart(3, '0')}.png`} 
               alt={details.name}
@@ -121,29 +120,25 @@ export default function PokemonScreenDetails({ pokemonName, isFavorite, onToggle
             />
           </div>
 
-          {/* Bottom Data Container - Fixed Flex Row with Glassmorphism */}
+          {/* Bottom Data Container */}
           <div className="h-[30%] w-full flex justify-between items-end pb-2 z-10 relative overflow-hidden shrink-0">
             
-            {/* Left Side: Pills Stack */}
-            <div className="flex gap-2">
-              <div className="flex flex-col gap-2">
-                {details.types.slice(0, 2).map((t, i) => (
-                  <span key={i} className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 py-1 rounded-full capitalize font-bold shadow-[0_4px_6px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.4)] whitespace-nowrap overflow-hidden text-ellipsis text-center text-sm min-w-[70px] max-w-[100px]">
-                    {t}
-                  </span>
-                ))}
-              </div>
-              <div className="flex flex-col gap-2">
-                {details.abilities.slice(0, 2).map((a, i) => (
-                  <span key={i} className="bg-black/40 backdrop-blur-md border border-white/10 text-white px-3 py-1 rounded-full capitalize font-bold shadow-[0_4px_6px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.2)] whitespace-nowrap overflow-hidden text-ellipsis text-center text-sm min-w-[80px] max-w-[120px]">
-                    {a.replace('-', ' ')}
-                  </span>
-                ))}
-              </div>
+            {/* Left Side: Capsule Pills - Types + Abilities in a single column */}
+            <div className="flex flex-col gap-1.5 justify-end">
+              {details.types.slice(0, 2).map((t, i) => (
+                <span key={`type-${i}`} className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 py-1 rounded-full capitalize font-bold shadow-[0_4px_6px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.4)] whitespace-nowrap text-center text-xs">
+                  {t}
+                </span>
+              ))}
+              {details.abilities.slice(0, 2).map((a, i) => (
+                <span key={`ability-${i}`} className="bg-black/40 backdrop-blur-md border border-white/10 text-white px-3 py-1 rounded-full capitalize font-bold shadow-[0_4px_6px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.2)] whitespace-nowrap text-center text-xs">
+                  {a.replace(/-/g, ' ')}
+                </span>
+              ))}
             </div>
 
-            {/* Right Side: Stats Stack */}
-            <div className="flex flex-col gap-2 text-right justify-end shrink-0 text-white font-semibold text-sm md:text-base">
+            {/* Right Side: Square Stat Boxes */}
+            <div className="flex flex-col gap-2 text-right justify-end shrink-0 text-white font-semibold text-sm">
               <div className="bg-black/30 backdrop-blur-sm border border-white/10 px-3 py-1 rounded-lg shadow-lg">
                 <span className="opacity-80 text-xs uppercase tracking-wider block leading-tight">Weight</span>
                 <span className="block leading-tight drop-shadow-md">{details.weight}</span>
