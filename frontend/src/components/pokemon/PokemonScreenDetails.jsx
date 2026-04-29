@@ -35,47 +35,44 @@ export default function PokemonScreenDetails({ pokemonName, isFavorite, onToggle
   // The outer screen wrapper logic
   const mainScreenTypeClass = details && details.types.length > 0 
     ? `type-bg-${details.types[0]}` 
-    : 'bg-black';
+    : 'bg-[#2a2a2a]'; // Dark default
 
   return (
-    <div className={`w-full h-full p-3 rounded-xl flex flex-col justify-between transition-colors duration-500 relative overflow-hidden ${mainScreenTypeClass}`}>
+    <div className={`w-full h-full flex flex-col justify-between overflow-hidden relative ${mainScreenTypeClass}`}>
       
       {/* If nothing selected */}
       {!pokemonName && !loading && (
         <div className="w-full h-full flex items-center justify-center text-center p-4">
-           <p className="text-gray-400 font-mono tracking-widest animate-pulse">Select a Pokémon from the list</p>
+           <p className="text-white/60 font-mono tracking-widest animate-pulse text-lg">Select a Pokémon</p>
         </div>
       )}
 
-      {/* Loading indicator */}
+      {/* Loading indicator - Modern Shimmer Skeleton */}
       {loading && (
-        <div className="w-full h-full flex flex-col justify-between animate-pulse">
-           {/* Header Skeleton */}
-           <div className="flex justify-between items-center z-10 relative">
-              <div className="w-32 h-8 bg-white/20 rounded" />
-              <div className="flex items-center gap-3">
-                 <div className="w-12 h-6 bg-white/20 rounded" />
-                 <div className="w-8 h-8 rounded-full bg-white/20" />
-              </div>
+        <div className="w-full h-full flex flex-col p-4 md:p-6 relative overflow-hidden">
+           {/* Shimmer Overlay */}
+           <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_1.5s_infinite] z-20 pointer-events-none" />
+           
+           <div className="flex justify-between items-center z-10 relative shrink-0 h-[10%]">
+              <div className="w-32 h-8 bg-black/20 rounded" />
+              <div className="w-16 h-6 bg-black/20 rounded" />
            </div>
            
-           {/* Image Skeleton */}
-           <div className="flex-1 flex justify-center items-center py-2 relative z-10">
-              <div className="w-36 h-36 bg-white/10 rounded-full" />
+           <div className="h-[45%] flex justify-center items-center relative z-10 shrink-0">
+              <div className="w-40 h-40 bg-black/10 rounded-full shadow-inner" />
            </div>
-
-           {/* Bottom Skeleton */}
-           <div className="flex flex-col gap-2 relative z-10">
-              <div className="flex justify-between gap-2">
-                 <div className="flex-1 flex flex-col gap-2">
-                    <div className="h-6 bg-white/20 rounded-full" />
-                 </div>
-                 <div className="flex-1 flex flex-col gap-2">
-                    <div className="h-6 bg-white/20 rounded-full" />
-                    <div className="h-6 bg-white/20 rounded-full" />
-                 </div>
-              </div>
-              <div className="w-full h-16 bg-white/10 rounded-xl mt-2" />
+           
+           <div className="h-[30%] w-full flex justify-between items-end pb-2 z-10 relative shrink-0">
+             <div className="flex gap-2">
+               <div className="flex flex-col gap-2">
+                 <div className="w-20 h-6 bg-white/20 rounded-full" />
+                 <div className="w-24 h-6 bg-white/20 rounded-full" />
+               </div>
+             </div>
+             <div className="flex flex-col gap-2 items-end">
+               <div className="w-24 h-5 bg-white/20 rounded" />
+               <div className="w-24 h-5 bg-white/20 rounded" />
+             </div>
            </div>
         </div>
       )}
@@ -83,85 +80,82 @@ export default function PokemonScreenDetails({ pokemonName, isFavorite, onToggle
       {/* Error state */}
       {error && !loading && (
         <div className="w-full h-full flex items-center justify-center text-center p-4">
-           <p className="text-red-400 font-mono font-bold uppercase">{error}</p>
+           <p className="text-red-900 font-bold uppercase">{error}</p>
         </div>
       )}
 
       {/* Detail State */}
       {details && !loading && !error && (
-        <>
+        <div className="w-full h-full flex flex-col p-4 md:p-6">
           {/* Header */}
-          <div className="flex justify-between items-center z-10 relative">
-            <span className="text-white text-2xl font-bold font-[var(--font-nova)] uppercase tracking-wider">
+          <div className="flex justify-between items-center z-10 relative text-[#2a2a2a] shrink-0 h-[10%]">
+            <span className="text-2xl md:text-3xl font-bold capitalize tracking-wide font-[var(--font-poppins)] overflow-hidden text-ellipsis whitespace-nowrap mr-2 drop-shadow-md text-white">
               {details.name}
             </span>
-            <div className="flex items-center gap-3">
-              <span className="text-white/70 text-xl font-[var(--font-merienda)] drop-shadow">
+            <div className="flex items-center gap-3 shrink-0">
+              {/* Metallic Accent ID */}
+              <span className="text-xl md:text-2xl font-[var(--font-poppins)] font-black bg-gradient-to-b from-[#e0e0e0] to-[#888888] bg-clip-text text-transparent drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                 #{String(details.id).padStart(3, '0')}
               </span>
               <button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onToggleFavorite(details.name, details.id);
-                }}
-                className={`flex items-center justify-center p-1.5 rounded-full backdrop-blur-md border border-white/20 transition-all ${isFavorite ? 'bg-white/20' : 'bg-black/30 hover:bg-white/10'}`}
+                onClick={() => onToggleFavorite(details.name, details.id)}
+                className={`text-2xl md:text-3xl transition-all duration-300 hover:scale-125 active:scale-90 focus:outline-none ${isFavorite ? 'text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]' : 'text-white/40 hover:text-white/80'}`}
+                title={isFavorite ? "Remove from Favorites" : "Add to Favorites"}
               >
-                <svg className={`w-5 h-5 transition-colors ${isFavorite ? 'text-red-400 fill-red-400' : 'text-gray-300 fill-transparent'}`} viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
+                ★
               </button>
             </div>
           </div>
 
-          {/* Image */}
-          <div className="flex-1 flex justify-center items-center py-2 relative z-10">
+          {/* Image - Strictly 45% max height */}
+          <div className="h-[45%] flex justify-center items-center relative z-10 shrink-0">
             <img 
               src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${String(details.id).padStart(3, '0')}.png`} 
               alt={details.name}
-              className="w-36 h-36 object-contain drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]"
+              className="w-full h-full object-contain drop-shadow-[0_8px_8px_rgba(0,0,0,0.4)]"
+              loading="lazy"
+              decoding="async"
               onError={(e) => {
-                 /* fallback to official sprite if custom 3D sprite fails */
                  e.target.src = details.sprites.official || details.sprites.front;
               }}
             />
           </div>
 
-          {/* Bottom Data Container */}
-          <div className="flex flex-col gap-2 relative z-10 shrink-0 h-[150px]">
-            {/* Types and Abilities */}
-            <div className="flex justify-between gap-2 h-[70px]">
-              <div className="flex-1 flex flex-col gap-1.5 h-full overflow-hidden">
-                {details.types.map(t => (
-                  <span key={t} className="bg-white/30 backdrop-blur-sm rounded-full py-1 text-center font-[var(--font-merienda)] text-sm shadow-sm capitalize truncate px-2 min-h-[28px] leading-tight">
+          {/* Bottom Data Container - Fixed Flex Row with Glassmorphism */}
+          <div className="h-[30%] w-full flex justify-between items-end pb-2 z-10 relative overflow-hidden shrink-0">
+            
+            {/* Left Side: Pills Stack */}
+            <div className="flex gap-2">
+              <div className="flex flex-col gap-2">
+                {details.types.slice(0, 2).map((t, i) => (
+                  <span key={i} className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-3 py-1 rounded-full capitalize font-bold shadow-[0_4px_6px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.4)] whitespace-nowrap overflow-hidden text-ellipsis text-center text-sm min-w-[70px] max-w-[100px]">
                     {t}
                   </span>
                 ))}
               </div>
-              <div className="flex-1 flex flex-col gap-1.5 h-full overflow-hidden">
-                {details.abilities.slice(0, 2).map((a) => (
-                  <span key={a} className="bg-black/30 backdrop-blur-sm rounded-full py-1 text-center font-[var(--font-merienda)] text-sm shadow-sm text-white/90 capitalize truncate px-2 min-h-[28px] leading-tight">
+              <div className="flex flex-col gap-2">
+                {details.abilities.slice(0, 2).map((a, i) => (
+                  <span key={i} className="bg-black/40 backdrop-blur-md border border-white/10 text-white px-3 py-1 rounded-full capitalize font-bold shadow-[0_4px_6px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.2)] whitespace-nowrap overflow-hidden text-ellipsis text-center text-sm min-w-[80px] max-w-[120px]">
                     {a.replace('-', ' ')}
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* Height / Weight Data */}
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 text-center mt-auto font-[var(--font-nova)] border border-white/10 shrink-0 h-[70px] flex flex-col justify-center">
-              <div className="flex justify-around items-center">
-                <div>
-                  <p className="text-white/60 text-[10px] tracking-wider uppercase mb-0.5 drop-shadow-md">Weight</p>
-                  <p className="text-lg font-bold drop-shadow-md leading-none">{details.weight / 10} kg</p>
-                </div>
-                <div className="w-[1px] h-8 bg-white/20" />
-                <div>
-                   <p className="text-white/60 text-[10px] tracking-wider uppercase mb-0.5 drop-shadow-md">Height</p>
-                   <p className="text-lg font-bold drop-shadow-md leading-none">{details.height / 10} m</p>
-                </div>
+            {/* Right Side: Stats Stack */}
+            <div className="flex flex-col gap-2 text-right justify-end shrink-0 text-white font-semibold text-sm md:text-base">
+              <div className="bg-black/30 backdrop-blur-sm border border-white/10 px-3 py-1 rounded-lg shadow-lg">
+                <span className="opacity-80 text-xs uppercase tracking-wider block leading-tight">Weight</span>
+                <span className="block leading-tight drop-shadow-md">{details.weight}</span>
+              </div>
+              <div className="bg-black/30 backdrop-blur-sm border border-white/10 px-3 py-1 rounded-lg shadow-lg">
+                <span className="opacity-80 text-xs uppercase tracking-wider block leading-tight">Height</span>
+                <span className="block leading-tight drop-shadow-md">{details.height}</span>
               </div>
             </div>
+            
           </div>
-        </>
+        </div>
       )}
     </div>
   );
