@@ -21,8 +21,8 @@ export default function PokemonScreenList({
   return (
     <div className="flex flex-col h-full overflow-hidden items-center justify-center">
 
-      {/* Inner Screen */}
-      <div className="w-full max-w-[450px] aspect-[1.1] bg-black p-4 md:p-6 rounded-md overflow-hidden flex flex-col mb-6 mt-2 relative gap-3">
+      {/* Inner Screen - Fills available height */}
+      <div className="w-full max-w-[480px] flex-1 min-h-0 bg-black p-3 md:p-5 rounded-md overflow-hidden flex flex-col mt-2 mb-4 relative gap-3">
 
         {/* Controls Row - Styled as Hardware Buttons */}
         <div className="flex justify-between items-center shrink-0 w-full pr-1 pb-1 gap-2 md:gap-3">
@@ -67,13 +67,14 @@ export default function PokemonScreenList({
           </div>
         </div>
 
-        <div className="bg-[#1a2b3c] border-[4px] border-[#0a1118] rounded-2xl flex-1 grid grid-flow-col grid-cols-2 grid-rows-10 gap-x-2 md:gap-x-4 gap-y-2 px-2 md:px-4 py-3 md:py-4 overflow-hidden text-white font-[var(--font-poppins)] justify-items-start content-evenly">
+        {/* Pokemon Grid */}
+        <div className="bg-[#1a2b3c] border-[4px] border-[#0a1118] rounded-2xl flex-1 grid grid-flow-col grid-cols-2 grid-rows-10 gap-x-1 gap-y-2 px-3 md:px-4 py-4 md:py-5 overflow-hidden text-white font-[var(--font-poppins)] justify-items-start content-evenly shadow-inner">
 
           {loading && (
             slots.map((_, i) => (
-              <div key={`skeleton-row-${i}`} className="flex items-center text-white h-[24px] overflow-hidden pl-2 rounded text-sm animate-pulse">
-                <div className="w-5 h-2.5 bg-white/20 rounded mr-2" />
-                <div className="w-20 h-2.5 bg-white/20 rounded" />
+              <div key={`skeleton-row-${i}`} className="flex items-center w-full h-[28px] overflow-hidden pl-2 rounded animate-pulse">
+                <div className="w-5 h-2.5 bg-white/10 rounded mr-2" />
+                <div className="w-16 h-3 bg-white/15 rounded" />
               </div>
             ))
           )}
@@ -94,20 +95,23 @@ export default function PokemonScreenList({
             const poke = pokemonList[i];
 
             if (!poke) {
-              return <div key={`empty-${i}`} className="h-[24px]" />;
+              return <div key={`empty-${i}`} className="h-[28px]" />;
             }
 
-            // Use the actual index based on page offset to match the screenshot "1. Bulbasaur"
             const displayId = ((page - 1) * 20) + i + 1;
 
             return (
               <div
                 key={poke.name}
                 onClick={() => onCardClick(poke.name)}
-                className="flex items-center text-white hover:text-yellow-300 cursor-pointer text-[11px] md:text-xs h-[24px] overflow-hidden pl-1 rounded w-full transition-colors"
+                className="flex items-center text-white hover:text-yellow-300 hover:bg-white/10 cursor-pointer text-[11px] md:text-xs h-[28px] overflow-hidden pl-1.5 pr-1 rounded-md w-full transition-all group"
               >
-                <span className="mr-1 md:mr-2 font-semibold w-[20px] md:w-[24px] shrink-0 inline-block">{displayId}.</span>
-                <span className="capitalize font-medium whitespace-nowrap tracking-wide">{poke.name.replace(/-/g, ' ')}</span>
+                <span className="mr-1.5 font-mono text-[9px] md:text-[10px] w-[18px] shrink-0 inline-block text-white/40 group-hover:text-yellow-300/60 transition-colors">
+                  {String(displayId).padStart(2, '0')}.
+                </span>
+                <span className="capitalize font-semibold whitespace-nowrap drop-shadow-sm">
+                  {poke.name.replace(/-/g, ' ')}
+                </span>
               </div>
             );
           })}
