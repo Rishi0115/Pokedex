@@ -73,6 +73,7 @@ function App() {
               pokemonName={selectedPokemonName}
               isFavorite={selectedPokemonName ? isFavorite(selectedPokemonName) : false}
               onToggleFavorite={toggleFavorite}
+              onClose={() => setSelectedPokemonName(null)}
             />
           }
           rightContent={
