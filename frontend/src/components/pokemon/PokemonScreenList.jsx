@@ -68,7 +68,7 @@ export default function PokemonScreenList({
         </div>
 
         {/* Pokemon Grid */}
-        <div className="bg-[#1a2b3c] border-[4px] border-[#0a1118] rounded-2xl flex-1 grid grid-flow-col grid-cols-2 grid-rows-10 gap-x-1 gap-y-2 px-3 md:px-4 py-4 md:py-5 overflow-hidden text-white font-[var(--font-poppins)] justify-items-start content-evenly shadow-inner">
+        <div key={page} className="bg-[#1a2b3c] border-[4px] border-[#0a1118] rounded-2xl flex-1 grid grid-flow-col grid-cols-2 grid-rows-10 gap-x-1 gap-y-2 px-3 md:px-4 py-4 md:py-5 overflow-hidden text-white font-[var(--font-poppins)] justify-items-start content-evenly shadow-inner animate-pageSlideIn">
 
           {loading && (
             slots.map((_, i) => (
@@ -104,7 +104,8 @@ export default function PokemonScreenList({
               <div
                 key={poke.name}
                 onClick={() => onCardClick(poke.name)}
-                className="flex items-center text-white hover:text-yellow-300 hover:bg-white/10 cursor-pointer text-[11px] md:text-xs h-[28px] overflow-hidden pl-1.5 pr-1 rounded-md w-full transition-all group"
+                className="flex items-center text-white hover:text-yellow-300 hover:bg-white/10 cursor-pointer text-[11px] md:text-xs h-[28px] overflow-hidden pl-1.5 pr-1 rounded-md w-full transition-all group animate-listRow hover:-translate-y-0.5"
+                style={{ animationDelay: `${i * 30}ms` }}
               >
                 <span className="mr-1.5 font-mono text-[9px] md:text-[10px] w-[18px] shrink-0 inline-block text-white/40 group-hover:text-yellow-300/60 transition-colors">
                   {String(displayId).padStart(2, '0')}.
