@@ -91,7 +91,7 @@ export default function PokemonScreenDetails({ pokemonName, isFavorite, onToggle
 
       {/* Detail State */}
       {details && !loading && !error && (
-        <div className="w-full h-full flex flex-col p-4 md:p-6">
+        <div key={details.name} className="w-full h-full flex flex-col p-4 md:p-6 animate-fadeSlideIn">
           {/* Header - Name + Favorite only */}
           <div className="flex justify-between items-center z-10 relative shrink-0 h-[10%]">
             <span className="text-2xl md:text-3xl font-bold capitalize tracking-wide font-[var(--font-poppins)] drop-shadow-md text-white">
@@ -99,7 +99,7 @@ export default function PokemonScreenDetails({ pokemonName, isFavorite, onToggle
             </span>
             <button 
               onClick={() => onToggleFavorite(details.name, details.id)}
-              className={`text-2xl md:text-3xl transition-all duration-300 hover:scale-125 active:scale-90 focus:outline-none shrink-0 ${isFavorite ? 'text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]' : 'text-white/40 hover:text-white/80'}`}
+              className={`text-2xl md:text-3xl transition-all duration-300 hover:scale-125 active:scale-90 focus:outline-none shrink-0 ${isFavorite ? 'text-yellow-400 animate-pulseGlow' : 'text-white/40 hover:text-white/80'}`}
               title={isFavorite ? "Remove from Favorites" : "Add to Favorites"}
             >
               ★
@@ -111,7 +111,7 @@ export default function PokemonScreenDetails({ pokemonName, isFavorite, onToggle
             <img 
               src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${String(details.id).padStart(3, '0')}.png`} 
               alt={details.name}
-              className="w-full h-full object-contain drop-shadow-[0_8px_8px_rgba(0,0,0,0.4)]"
+              className="w-full h-full object-contain drop-shadow-[0_8px_8px_rgba(0,0,0,0.4)] animate-scaleIn"
               loading="lazy"
               decoding="async"
               onError={(e) => {

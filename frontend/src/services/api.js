@@ -5,7 +5,8 @@ const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api'
 
 const api = axios.create({
   baseURL: API_URL,
-  timeout: 10000, // 10s timeout
+  timeout: 10000,
+  withCredentials: true, // Send cookies for session auth
 });
 
 // Helpful to catch holistic errors (like server down)
@@ -27,6 +28,11 @@ export const favApi = {
   getFavorites: () => api.get('/favorites'),
   addFavorite: (data) => api.post('/favorites', data),
   removeFavorite: (id) => api.delete(`/favorites/${id}`),
+};
+
+export const authApi = {
+  getMe: () => api.get('/auth/me'),
+  logout: () => api.post('/auth/logout'),
 };
 
 export default api;
