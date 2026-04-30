@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { pokeApi } from '../../services/api';
 
-export default function PokemonScreenDetails({ pokemonName, isFavorite, onToggleFavorite }) {
+export default function PokemonScreenDetails({ pokemonName, isFavorite, onToggleFavorite, onClose }) {
   const [details, setDetails] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -92,18 +92,29 @@ export default function PokemonScreenDetails({ pokemonName, isFavorite, onToggle
       {/* Detail State */}
       {details && !loading && !error && (
         <div key={details.name} className="w-full h-full flex flex-col p-4 md:p-6 animate-fadeSlideIn">
-          {/* Header - Name + Favorite only */}
+          {/* Header - Name + Favorite + Close */}
           <div className="flex justify-between items-center z-10 relative shrink-0 h-[10%]">
             <span className="text-2xl md:text-3xl font-bold capitalize tracking-wide font-[var(--font-poppins)] drop-shadow-md text-white">
               {details.name.replace(/-/g, ' ')}
             </span>
-            <button 
-              onClick={() => onToggleFavorite(details.name, details.id)}
-              className={`text-2xl md:text-3xl transition-all duration-300 hover:scale-125 active:scale-90 focus:outline-none shrink-0 ${isFavorite ? 'text-yellow-400 animate-pulseGlow' : 'text-white/40 hover:text-white/80'}`}
-              title={isFavorite ? "Remove from Favorites" : "Add to Favorites"}
-            >
-              ★
-            </button>
+            <div className="flex items-center gap-2 shrink-0">
+              <button 
+                onClick={() => onToggleFavorite(details.name, details.id)}
+                className={`text-2xl md:text-3xl transition-all duration-300 hover:scale-125 active:scale-90 focus:outline-none shrink-0 ${isFavorite ? 'text-yellow-400 animate-pulseGlow' : 'text-white/40 hover:text-white/80'}`}
+                title={isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+              >
+                ★
+              </button>
+              {onClose && (
+                <button
+                  onClick={onClose}
+                  className="text-white/40 hover:text-red-400 text-xl md:text-2xl font-bold transition-all duration-200 hover:scale-110 active:scale-90 focus:outline-none shrink-0 leading-none"
+                  title="Close detail view"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Image - Fills more space */}

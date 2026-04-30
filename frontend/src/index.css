@@ -63,7 +63,7 @@ body {
   height: 100%;
   z-index: 0;
   pointer-events: none;
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 /* ────────────────────────────────────────────────────────
@@ -480,31 +480,31 @@ body {
    ──────────────────────────────────────────────────────── */
 
 .type-bg-normal {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-fighting {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-flying {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-poison {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-ground {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-rock {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-bug {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-ghost {
@@ -512,43 +512,43 @@ body {
 }
 
 .type-bg-steel {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-fire {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-water {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-grass {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-electric {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-psychic {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-ice {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-dragon {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-dark {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 .type-bg-fairy {
-  background-image: radial-gradient(circle at top left,  0%,  100%);
+  background-image: radial-gradient(circle at top left, 0%, 100%);
 }
 
 /* ────────────────────────────────────────────────────────
@@ -703,8 +703,13 @@ body {
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 /* ===== ANIMATION KEYFRAMES ===== */
@@ -714,6 +719,7 @@ body {
     opacity: 0;
     transform: translateY(12px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -725,9 +731,11 @@ body {
     opacity: 0;
     transform: scale(0.75);
   }
+
   60% {
     transform: scale(1.03);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -739,6 +747,7 @@ body {
     opacity: 0;
     transform: translateX(-8px);
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);
@@ -746,18 +755,24 @@ body {
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-8px);
   }
 }
 
 @keyframes pulseGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     filter: drop-shadow(0 0 4px rgba(250, 204, 21, 0.4));
   }
+
   50% {
     filter: drop-shadow(0 0 12px rgba(250, 204, 21, 0.8));
   }
@@ -768,6 +783,7 @@ body {
     opacity: 0;
     transform: translateX(20px);
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);
@@ -794,4 +810,3 @@ body {
 .animate-pageSlideIn {
   animation: pageSlideIn 0.35s ease-out both;
 }
-
