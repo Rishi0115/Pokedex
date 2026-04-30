@@ -15,6 +15,10 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
+// Trust proxy is required when deploying behind a load balancer (like Render)
+// so that it correctly handles secure cookies.
+app.set('trust proxy', 1);
+
 // CORS — allow frontend with credentials
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:5173',
@@ -35,8 +39,9 @@ app.use(session({
   cookie: {
     maxAge: 24 * 60 * 60 * 1000, // 1 day
     httpOnly: true,
-    secure: false, // Set true in production with HTTPS
-    sameSite: 'lax',
+    // Cross-site cookies (different frontend/backend domains) require secure: true and sameSite: 'none'
+    secure: process.env.NODE_ENV === 'production', 
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
   },
 }));
 
