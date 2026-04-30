@@ -11,9 +11,32 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
+        // 1. Check if we have a token in the URL (coming back from Google OAuth)
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+
+        if (token) {
+          // Decode the base64 token to get user data
+          const userData = JSON.parse(atob(token));
+          setUser(userData);
+          localStorage.setItem('pokedex_user', JSON.stringify(userData));
+          // Clean the URL so the token isn't visible
+          window.history.replaceState({}, document.title, window.location.pathname);
+          return;
+        }
+
+        // 2. Check localStorage for persisted user
+        const savedUser = localStorage.getItem('pokedex_user');
+        if (savedUser) {
+          setUser(JSON.parse(savedUser));
+          return;
+        }
+
+        // 3. Fall back to session cookie check (works on localhost)
         const res = await authApi.getMe();
         if (res.data.success) {
           setUser(res.data.data);
+          localStorage.setItem('pokedex_user', JSON.stringify(res.data.data));
         }
       } catch (err) {
         // Not authenticated — that's fine
@@ -36,6 +59,7 @@ export function AuthProvider({ children }) {
     } catch (err) {
       console.error('Logout failed:', err);
     }
+    localStorage.removeItem('pokedex_user');
     setUser(null);
   };
 

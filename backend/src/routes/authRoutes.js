@@ -11,8 +11,16 @@ router.get('/google', passport.authenticate('google', {
 router.get('/google/callback', passport.authenticate('google', {
   failureRedirect: `${process.env.FRONTEND_URL || 'http://localhost:5173'}?auth=failed`,
 }), (req, res) => {
-  // Successful authentication, redirect to frontend
-  res.redirect(process.env.FRONTEND_URL || 'http://localhost:5173');
+  // Encode user data as a base64 token so the frontend can read it from the URL
+  // This avoids cross-domain cookie issues when frontend and backend are on different domains
+  const userData = {
+    id: req.user._id,
+    displayName: req.user.displayName,
+    email: req.user.email,
+    avatar: req.user.avatar,
+  };
+  const token = Buffer.from(JSON.stringify(userData)).toString('base64');
+  res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:5173'}?token=${token}`);
 });
 
 // Get current user
