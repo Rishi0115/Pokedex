@@ -1,5 +1,4 @@
 import React from 'react';
-import { Home } from 'lucide-react';
 
 export default function PokedexLayout({ leftContent, rightContent, LeftHeaderLights }) {
   return (
@@ -60,12 +59,6 @@ export default function PokedexLayout({ leftContent, rightContent, LeftHeaderLig
         </div>
 
       </div>
-
-      {/* Home Icon */}
-      <div className="fixed bottom-6 right-6 z-50 cursor-pointer hover:scale-110 transition-transform">
-        <Home className="w-10 h-10 text-white drop-shadow-lg" />
-      </div>
-
     </div>
   );
 }

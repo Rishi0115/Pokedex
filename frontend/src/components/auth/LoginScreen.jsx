@@ -8,17 +8,17 @@ export default function LoginScreen() {
     <>
       <div id="stars" />
       <div className="relative z-10 min-h-screen w-full flex items-center justify-center px-4">
-        
+
         {/* Login Card */}
         <div className="w-full max-w-md animate-fadeSlideIn">
-          
+
           {/* Glassmorphic Card */}
           <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.6)] relative overflow-hidden">
-            
+
             {/* Gradient glow behind card */}
             <div className="absolute -top-20 -right-20 w-60 h-60 bg-gradient-to-br from-red-500/30 to-yellow-500/20 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 rounded-full blur-3xl pointer-events-none" />
-            
+
             {/* Pokéball Icon */}
             <div className="flex justify-center mb-6 relative z-10">
               <div className="w-20 h-20 rounded-full bg-gradient-to-b from-red-500 to-red-700 relative shadow-[0_0_30px_rgba(239,68,68,0.5)] animate-[float_3s_ease-in-out_infinite]">
@@ -56,23 +56,7 @@ export default function LoginScreen() {
               <span className="text-sm tracking-wide">Sign in with Google</span>
             </button>
 
-            {/* Divider */}
-            <div className="flex items-center my-6 relative z-10">
-              <div className="flex-1 h-px bg-white/10" />
-              <span className="px-4 text-white/30 text-xs uppercase tracking-widest">or</span>
-              <div className="flex-1 h-px bg-white/10" />
-            </div>
-
-            {/* Guest mode hint */}
-            <p className="text-center text-white/30 text-xs font-[var(--font-poppins)] relative z-10">
-              Authentication is required to save favorites<br />and personalize your Pokédex experience
-            </p>
           </div>
-
-          {/* Footer text */}
-          <p className="text-center text-white/20 text-xs mt-6 font-[var(--font-poppins)]">
-            Built with ❤️ using MERN Stack
-          </p>
         </div>
       </div>
     </>
