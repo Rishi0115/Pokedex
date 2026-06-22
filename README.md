@@ -1,6 +1,6 @@
 # Pokédex App
 
-A full-stack Pokédex application featuring a modern, responsive interface and an authenticated backend to save your favorite Pokémon.
+A Full-Stack Pokédex application featuring a modern, responsive interface and an authenticated backend to save your favorite Pokémon.
 
 ## Project Structure
 
